@@ -4,8 +4,16 @@ from web_poet import Returns, WebPage, field, handle_urls
 from base.items import ScanItem
 
 
-@handle_urls("scan.co.uk")
+def clean_newlines(s: str) -> str:
+    return s.replace("\n", "")
+
+
+@handle_urls("scan.co.uk/products/")
 class ProductPage(WebPage, Returns[ScanItem]):
+    class Processors:
+        name = [clean_newlines, str.strip]
+        description = [clean_newlines, str.strip]
+
     @field
     def name(self):
         return self.css("h1[itemprop='name']::text").get()
