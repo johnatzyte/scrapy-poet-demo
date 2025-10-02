@@ -13,9 +13,11 @@ SPIDER_MODULES = ["base.spiders"]
 NEWSPIDER_MODULE = "base.spiders"
 
 ADDONS = {
+    "scrapy_poet.Addon": 300,
     "scrapy_zyte_api.Addon": 500,
 }
 
+SCRAPY_POET_DISCOVER = ["base.pages"]
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = "base (+http://www.yourdomain.com)"

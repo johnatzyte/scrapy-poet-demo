@@ -1,5 +1,7 @@
 import scrapy
 
+from base.items import ScanItem
+
 
 class ProductsSpider(scrapy.Spider):
     name = "products"
@@ -12,10 +14,5 @@ class ProductsSpider(scrapy.Spider):
     async def start(self):
         yield scrapy.Request(url=self.url, callback=self.parse)
 
-    async def parse(self, response):
-        yield {
-            "name": response.css("h1[itemprop='name']::text").get(),
-            "price": response.css("span[itemprop='price']::attr(content)").get(),
-            "description": response.css("h2[itemprop='description']::text").get().strip().replace("\n", ""),
-            "url": response.url,
-        }
+    async def parse(self, _, item: ScanItem):
+        yield item
